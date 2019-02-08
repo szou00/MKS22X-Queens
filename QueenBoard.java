@@ -10,10 +10,10 @@ public class QueenBoard {
       board[r][c] = 5; //place the queen there
       int d = r; //this will come in use for the diagonal
       for (int x = c+1; x < board.length; x++) {
-        board[r][x] = 1; //sets the whole row to 1
+        board[r][x] += 1; //sets the whole row to 1
         if (d < board.length-1) {
           d+=1;
-          board[d][x] = 1; //sets diagonals to 1
+          board[d][x] += 1; //sets diagonals to 1
         }
       }
       return true;
@@ -21,8 +21,20 @@ public class QueenBoard {
     return false;
   }
 
-  private boolean removeQueen(int r, int c) {
-    return true;
+  public boolean removeQueen(int r, int c) {
+    if (board[r][c] == 5) { //if there's a queen there
+      board[r][c] = 0; //remove the queen
+      int d = r; //this will come in use for the diagonal
+      for (int x = c+1; x < board.length; x++) {
+        board[r][x] -= 1; //subtracts a one because the queen isn't there anymore
+        if (d < board.length-1) {
+          d+=1;
+          board[d][x] -= 1; //subtracts one from all the influenced squares
+        }
+      }
+      return true;
+    }
+    return false;
   }
 
   /**
