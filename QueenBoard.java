@@ -5,15 +5,15 @@ public class QueenBoard {
     board = new int[size][size];
   }
 
-  public boolean addQueen(int r, int c) {
-    if (board[r][c] == 0) {
-      board[r][c] = -1;
-      int d = c;
+  private boolean addQueen(int r, int c) {
+    if (board[r][c] == 0) { //if it's a good spot that's not in danger
+      board[r][c] = -1; //place the queen there
+      int d = c; //this will come in use for the diagonal
       for (int x = r+1; x < board.length; x++) {
-        board[r][x] = 1;
+        board[r][x] = 1; //sets the whole row to 1
         if (d < board.length-1) {
           d+=1;
-          board[d][x] = 1;
+          board[d][x] = 1; //sets diagonals to 1
         }
       }
       return true;
@@ -25,7 +25,6 @@ public class QueenBoard {
     return board[r][c];
   }
 
-  //helper function for addQueen
 
   private boolean removeQueen(int r, int c) {
     return true;
