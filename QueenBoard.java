@@ -5,11 +5,11 @@ public class QueenBoard {
     board = new int[size][size];
   }
 
-  private boolean addQueen(int r, int c) {
+  public boolean addQueen(int r, int c) {
     if (board[r][c] == 0) { //if it's a good spot that's not in danger
-      board[r][c] = -1; //place the queen there
-      int d = c; //this will come in use for the diagonal
-      for (int x = r+1; x < board.length; x++) {
+      board[r][c] = 5; //place the queen there
+      int d = r; //this will come in use for the diagonal
+      for (int x = c+1; x < board.length; x++) {
         board[r][x] = 1; //sets the whole row to 1
         if (d < board.length-1) {
           d+=1;
@@ -20,11 +20,6 @@ public class QueenBoard {
     }
     return false;
   }
-
-  public int getValue(int r, int c) {
-    return board[r][c];
-  }
-
 
   private boolean removeQueen(int r, int c) {
     return true;
@@ -48,12 +43,7 @@ public class QueenBoard {
     String ans = "";
     for (int r = 0; r<board.length; r++) {
       for (int c = 0; c<board[0].length; c++) {
-        if (c!=-5) {
-          ans += board[r][c] + " ";
-        }
-        else {
-          ans += "-1 ";
-        }
+        ans += board[r][c] + " ";
       }
       ans += "\n";
     }
@@ -82,12 +72,6 @@ public class QueenBoard {
     return 0;
   }
 
-    public static void main(String[] args) {
-      QueenBoard queenboard = new QueenBoard(8);
-      System.out.println(queenboard);
-      queenboard.addQueen(0,0);
-      System.out.println(queenboard);
-    }
 
 
 }
