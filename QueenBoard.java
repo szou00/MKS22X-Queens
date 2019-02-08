@@ -73,6 +73,22 @@ public class QueenBoard {
 
   */
   public boolean solve(){
+    int s =0,r=0,c=0,n = 0;
+    //s keeps track of the size
+    //r keeps track of the row
+    //c keeps track of column
+    //n keeps track of number of queens
+    if (n == board.length) {
+      return true;
+    }
+    if (addQueen(r,c)) {
+      addQueen(r+1,c);
+    }
+    else {
+      if (!(c < 8 && addQueen(r+1,c+1))) {
+        removeQueen(r+1,c);
+      }
+    }
     return false;
   }
 
