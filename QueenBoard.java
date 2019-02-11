@@ -72,9 +72,11 @@ public class QueenBoard {
   *@throws IllegalStateException when the board starts with any non-zero value
 
   */
-  public boolean solve(){
-    int s =0,r=0,c=0,n = 0;
-    //s keeps track of the size
+  public boolean solve() {
+    return solve(0,0,0);
+  }
+
+  public boolean solve(int r, int c, int n){
     //r keeps track of the row
     //c keeps track of column
     //n keeps track of number of queens
@@ -82,12 +84,13 @@ public class QueenBoard {
       return true;
     }
     if (addQueen(r,c)) {
-      addQueen(r+1,c);
+      if (solve(0,r+1,n+1)) {
+        return true;
+      }
+      removeQueen(r,c);
     }
     else {
-      if (!(c < 8 && addQueen(r+1,c+1))) {
-        removeQueen(r+1,c);
-      }
+      addQueen(r++,c);
     }
     return false;
   }
