@@ -6,6 +6,9 @@ public class QueenBoard {
   }
 
   public boolean addQueen(int r, int c) {
+    if (c == board.length || r == board.length) {
+      return false;
+    }
     if (board[r][c] == 0) { //if it's a good spot that's not in danger
       board[r][c] = 5; //place the queen there
       int d = r; //this will come in use for the diagonal
@@ -83,14 +86,23 @@ public class QueenBoard {
     if (n == board.length) {
       return true;
     }
+    if (r == board.length || c == board.length) {
+      return false;
+    }
     if (addQueen(r,c)) {
-      if (solve(0,r+1,n+1)) {
-        return true;
-      }
-      removeQueen(r,c);
+      return (solve(0,c+1,n+1));
     }
     else {
-      addQueen(r++,c);
+      if (r+1<8) {
+        return solve(r+1,c,n);
+      }
+      else {
+        for (int i = 0; i < 8; i++) {
+          if (removeQueen(i,c-1)) {
+            return solve(i+1,c-1,n-1);
+          }
+        }
+      }
     }
     return false;
   }
