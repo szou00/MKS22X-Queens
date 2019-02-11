@@ -12,11 +12,16 @@ public class QueenBoard {
     if (board[r][c] == 0) { //if it's a good spot that's not in danger
       board[r][c] = 5; //place the queen there
       int d = r; //this will come in use for the diagonal
+      int d1 = r; //for the up diagonal
       for (int x = c+1; x < board.length; x++) {
         board[r][x] += 1; //sets the whole row to 1
         if (d < board.length-1) {
           d+=1;
           board[d][x] += 1; //sets diagonals to 1
+        }
+        if (d1 > 0) {
+          d1-=1;
+          board[d1][x] +=1;
         }
       }
       return true;
@@ -28,11 +33,16 @@ public class QueenBoard {
     if (board[r][c] == 5) { //if there's a queen there
       board[r][c] = 0; //remove the queen
       int d = r; //this will come in use for the diagonal
+      int d1 = r; //for the up diagonal
       for (int x = c+1; x < board.length; x++) {
         board[r][x] -= 1; //subtracts a one because the queen isn't there anymore
         if (d < board.length-1) {
           d+=1;
           board[d][x] -= 1; //subtracts one from all the influenced squares
+        }
+        if (d1 > 0) {
+          d1-=1;
+          board[d1][x] -= 1;
         }
       }
       return true;
@@ -89,22 +99,36 @@ public class QueenBoard {
     if (r == board.length || c == board.length) {
       return false;
     }
-    if (addQueen(r,c)) {
-      return (solve(0,c+1,n+1));
-    }
-    else {
-      if (r+1<8) {
-        return solve(r+1,c,n);
-      }
-      else {
-        for (int i = 0; i < 8; i++) {
-          if (removeQueen(i,c-1)) {
-            return solve(i+1,c-1,n-1);
-          }
+    for (int i = 0; i<board.length; i++) {
+      if (addQueen(i,c)) {
+        if (solve(i,c+1,n+1)) {
+          return true;
         }
+        removeQueen(i,c);
       }
     }
     return false;
+  }
+
+  public int solveAll(int r, int c, int n){
+    //r keeps track of the row
+    //c keeps track of column
+    //n keeps track of number of queens
+    if (n == board.length) {
+      return true;
+    }
+    if (r == board.length || c == board.length) {
+      return false;
+    }
+    for (int i = 0; i<board.length; i++) {
+      if (addQueen(i,c)) {
+        if (solve(i,c+1,n+1)) {
+          c+=1;
+        }
+        removeQueen(i,c);
+      }
+    }
+    return c;
   }
 
   /**
@@ -112,7 +136,7 @@ public class QueenBoard {
   *@throws IllegalStateException when the board starts with any non-zero value
   */
   public int countSolutions(){
-    return 0;
+    return solveAll(0,0,0);
   }
 
 
