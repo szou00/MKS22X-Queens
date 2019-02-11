@@ -50,6 +50,14 @@ public class QueenBoard {
     return false;
   }
 
+  public void clear() {
+    for (int i = 0; i<board.length; i++) {
+      for (int x = 0; x<board.length; x++) {
+        board[i][x] = 0;
+      }
+    }
+  }
+
   /**
   *@return The output string formatted as follows:
   *All numbers that represent queens are replaced with 'Q'
@@ -114,21 +122,17 @@ public class QueenBoard {
     //r keeps track of the row
     //c keeps track of column
     //n keeps track of number of queens
-    if (n == board.length) {
-      return true;
+    if (n >= board.length) {
+      return 1;
     }
-    if (r == board.length || c == board.length) {
-      return false;
-    }
+    int answer = 0;
     for (int i = 0; i<board.length; i++) {
       if (addQueen(i,c)) {
-        if (solve(i,c+1,n+1)) {
-          c+=1;
-        }
+        answer+=solveAll(i,c+1,n+1);
         removeQueen(i,c);
       }
     }
-    return c;
+    return answer;
   }
 
   /**
@@ -136,7 +140,8 @@ public class QueenBoard {
   *@throws IllegalStateException when the board starts with any non-zero value
   */
   public int countSolutions(){
-    return solveAll(0,0,0);
+    int answer = solveAll(0,0,0);
+    return answer;
   }
 
 
