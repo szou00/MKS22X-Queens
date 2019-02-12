@@ -55,14 +55,6 @@ public static void main(String[] args) {
   System.out.println("SIZE FOURTEEN: ");
   QueenBoard fourteen = new QueenBoard(14);
   System.out.println("Number of solutions: " + fourteen.countSolutions());
-  // System.out.println(queenboard.solve());
-  // System.out.println(queenboard);
-  // // System.out.println(queenboard.countSolutions());
-  // System.out.println(queenboard1.countSolutions());
-  // System.out.println(queenboard1);
-  // QueenBoard unsolvable = new QueenBoard(2);
-  // System.out.println(unsolvable.solve());
-  // System.out.println(unsolvable);
 
   }
 
