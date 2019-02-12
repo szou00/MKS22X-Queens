@@ -14,8 +14,9 @@ public static void main(String[] args) {
   // queenboard.addQueen(0,0);
   System.out.println(queenboard.solve());
   System.out.println(queenboard);
-  System.out.println(queenboard.countSolutions());
-  System.out.println(queenboard);
+  // System.out.println(queenboard.countSolutions());
+  System.out.println(queenboard1.countSolutions());
+  System.out.println(queenboard1);
   QueenBoard unsolvable = new QueenBoard(2);
   System.out.println(unsolvable.solve());
   System.out.println(unsolvable);
