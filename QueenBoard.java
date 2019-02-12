@@ -112,23 +112,20 @@ public class QueenBoard {
     if (!this.cleared()) { //checks to see if the board is cleared
       throw new IllegalStateException("Board must be empty"); //if not, throw exception
     }
-    return solve(0,0); //calls helper function
+    return solve(0); //calls helper function
   }
 
   //helper method
-  public boolean solve(int r, int c){
+  public boolean solve(int c){
     if (c == board.length) {
       return true; //if it reaches the end of the board, a solution is found
     }
-    // if (r == board.length || c == board.length) {
-    //   return false;
-    // }
-    for (int i = 0; i<board.length; i++) { //goes through the rows
-      if (addQueen(i,c)) { //if a queen can be added
-        if (solve(i,c+1)) { //the function is called again recursively
+    for (int r = 0; r<board.length; r++) { //goes through the rows
+      if (addQueen(r,c)) { //if a queen can be added
+        if (solve(c+1)) { //the function is called again recursively
           return true; //if it works out, return true
         }
-        removeQueen(i,c); //otherwise remove the queen
+        removeQueen(r,c); //otherwise remove the queen
       }
     }
     return false;
