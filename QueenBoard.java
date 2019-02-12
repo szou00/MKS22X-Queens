@@ -9,7 +9,7 @@ public class QueenBoard {
   //adds a queen to desired location if valid
   //returns true if successful
   //returns false if not
-  public boolean addQueen(int r, int c) {
+  private boolean addQueen(int r, int c) {
     if (c == board.length || r == board.length) { //if it's out of bounds, return false
       return false;
     }
@@ -35,7 +35,7 @@ public class QueenBoard {
 
   //removes the queen at desired location, if applicable
   //returns true is removal is successful
-  public boolean removeQueen(int r, int c) {
+  private boolean removeQueen(int r, int c) {
     if (board[r][c] == -1) { //if there's a queen there
       board[r][c] = 0; //remove the queen
       int d = r; //this will come in use for the diagonal
@@ -54,6 +54,15 @@ public class QueenBoard {
       return true;
     }
     return false;
+  }
+
+  //clears the board
+  public void clear() {
+    for (int i = 0; i<board.length; i++) {
+      for (int x = 0; x<board.length; x++) {
+        board[i][x] = 0;
+      }
+    }
   }
 
   //checks to see if the board is empty/cleared
@@ -112,11 +121,14 @@ public class QueenBoard {
     if (!this.cleared()) { //checks to see if the board is cleared
       throw new IllegalStateException("Board must be empty"); //if not, throw exception
     }
+    if (board.length == 0) {
+      throw new IllegalArgumentException("Board must not be size zero");
+    }
     return solve(0); //calls helper function
   }
 
   //helper method
-  public boolean solve(int c){
+  private boolean solve(int c){
     if (c == board.length) {
       return true; //if it reaches the end of the board, a solution is found
     }
@@ -131,7 +143,7 @@ public class QueenBoard {
     return false;
   }
 
-  public int findAll(int c){
+  private int findAll(int c){
     int answer = 0; //this will store the number of solutions
     if (c == board.length) {
       return 1; //if it reaches the end of the board, a solution is found
