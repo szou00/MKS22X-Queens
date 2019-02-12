@@ -112,44 +112,40 @@ public class QueenBoard {
     if (!this.cleared()) { //checks to see if the board is cleared
       throw new IllegalStateException("Board must be empty"); //if not, throw exception
     }
-    return solve(0,0);
+    return solve(0,0); //calls helper function
   }
 
   //helper method
   public boolean solve(int r, int c){
-    //r keeps track of the row
-    //c keeps track of column
     if (c == board.length) {
-      return true;
+      return true; //if it reaches the end of the board, a solution is found
     }
-    if (r == board.length || c == board.length) {
-      return false;
-    }
-    for (int i = 0; i<board.length; i++) {
-      if (addQueen(i,c)) {
-        if (solve(i,c+1)) {
-          return true;
+    // if (r == board.length || c == board.length) {
+    //   return false;
+    // }
+    for (int i = 0; i<board.length; i++) { //goes through the rows
+      if (addQueen(i,c)) { //if a queen can be added
+        if (solve(i,c+1)) { //the function is called again recursively
+          return true; //if it works out, return true
         }
-        removeQueen(i,c);
+        removeQueen(i,c); //otherwise remove the queen
       }
     }
     return false;
   }
 
   public int solveAll(int r, int c){
-    //r keeps track of the row
-    //c keeps track of column
-    int answer = 0;
+    int answer = 0; //this will store the number of solutions
     if (c == board.length) {
-      return 1;
+      return 1; //if it reaches the end of the board, a solution is found
     }
     for (int i = 0; i<board.length; i++) {
-      if (addQueen(i,c)) {
-        answer+=solveAll(i,c+1);
-        removeQueen(i,c);
+      if (addQueen(i,c)) { //if a queen can be added
+        answer+=solveAll(i,c+1); //the function is called recursively for the next column to see if a queen can be added
+        removeQueen(i,c); //otherwise remove the queen
       }
     }
-    return answer;
+    return answer; //the total number of solutions is returned
   }
 
   /**
@@ -160,8 +156,7 @@ public class QueenBoard {
     if (!this.cleared()) { //checks to see if the board is cleared
       throw new IllegalStateException("Board must be empty"); //if not, throw exception
     }
-    int answer = solveAll(0,0);
-    return answer;
+    return solveAll(0,0); //calls the helper function 
   }
 
 
