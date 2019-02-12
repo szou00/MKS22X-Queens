@@ -134,15 +134,15 @@ public class QueenBoard {
     return false;
   }
 
-  public int solveAll(int r, int c){
+  public int findAll(int c){
     int answer = 0; //this will store the number of solutions
     if (c == board.length) {
       return 1; //if it reaches the end of the board, a solution is found
     }
-    for (int i = 0; i<board.length; i++) {
-      if (addQueen(i,c)) { //if a queen can be added
-        answer+=solveAll(i,c+1); //the function is called recursively for the next column to see if a queen can be added
-        removeQueen(i,c); //otherwise remove the queen
+    for (int r = 0; r<board.length; r++) {
+      if (addQueen(r,c)) { //if a queen can be added
+        answer+=findAll(c+1); //the function is called recursively for the next column to see if a queen can be added
+        removeQueen(r,c); //otherwise remove the queen
       }
     }
     return answer; //the total number of solutions is returned
@@ -156,7 +156,7 @@ public class QueenBoard {
     if (!this.cleared()) { //checks to see if the board is cleared
       throw new IllegalStateException("Board must be empty"); //if not, throw exception
     }
-    return solveAll(0,0); //calls the helper function 
+    return findAll(0); //calls the helper function
   }
 
 
