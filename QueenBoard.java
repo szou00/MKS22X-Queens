@@ -1,10 +1,14 @@
 public class QueenBoard {
   private int[][] board;
 
+  //creates a new QueenBoard with desired size
   public QueenBoard(int size) {
     board = new int[size][size];
   }
 
+  //adds a queen to desired location if valid
+  //returns true if successful
+  //returns false if not
   public boolean addQueen(int r, int c) {
     if (c == board.length || r == board.length) { //if it's out of bounds, return false
       return false;
@@ -29,6 +33,8 @@ public class QueenBoard {
     return false; //otherwise return false
   }
 
+  //removes the queen at desired location, if applicable
+  //returns true is removal is successful
   public boolean removeQueen(int r, int c) {
     if (board[r][c] == -1) { //if there's a queen there
       board[r][c] = 0; //remove the queen
@@ -38,11 +44,11 @@ public class QueenBoard {
         board[r][x] -= 1; //subtracts a one because the queen isn't there anymore
         if (d < board.length-1) {
           d+=1;
-          board[d][x] -= 1; //subtracts one from all the influenced squares
+          board[d][x] -= 1; //subtracts one from all squares in the upward diagonal
         }
         if (d1 > 0) {
           d1-=1;
-          board[d1][x] -= 1;
+          board[d1][x] -= 1; //subtracts one from all squares in the downward diagonal
         }
       }
       return true;
@@ -50,11 +56,11 @@ public class QueenBoard {
     return false;
   }
 
-
+  //clears the board
   public void clear() {
     for (int i = 0; i<board.length; i++) {
       for (int x = 0; x<board.length; x++) {
-        board[i][x] = 0;
+        board[i][x] = 0; //sets everything back to zero
       }
     }
   }
@@ -77,14 +83,14 @@ public class QueenBoard {
     String ans = "";
     for (int r = 0; r<board.length; r++) {
       for (int c = 0; c<board[0].length; c++) {
-        if (board[r][c] == -1) {
-          ans+= "Q ";
+        if (board[r][c] == -1) { //if the value indicates a queen
+          ans+= "Q "; //print out a queen
         }
         else {
-          ans+="_ ";
+          ans+="_ "; //otherwise print out an empty slot
         }
       }
-      ans += "\n";
+      ans += "\n"; //new row
     }
     return ans;
   }
@@ -103,10 +109,10 @@ public class QueenBoard {
     return solve(0,0);
   }
 
+  //helper method
   public boolean solve(int r, int c){
     //r keeps track of the row
     //c keeps track of column
-    //n keeps track of number of queens
     if (c == board.length) {
       return true;
     }
@@ -127,7 +133,6 @@ public class QueenBoard {
   public int solveAll(int r, int c){
     //r keeps track of the row
     //c keeps track of column
-    //n keeps track of number of queens
     int answer = 0;
     if (c == board.length) {
       return 1;
