@@ -56,13 +56,16 @@ public class QueenBoard {
     return false;
   }
 
-  //clears the board
-  public void clear() {
+  //checks to see if the board is empty/cleared
+  public boolean cleared() {
     for (int i = 0; i<board.length; i++) {
       for (int x = 0; x<board.length; x++) {
-        board[i][x] = 0; //sets everything back to zero
+        if (board[i][x] != 0) {
+          return false;
+        } //if something is not equal to 0, it means the board is not empy
       }
     }
+    return true;
   }
 
   /**
@@ -106,6 +109,9 @@ public class QueenBoard {
 
   */
   public boolean solve() {
+    if (!this.cleared()) { //checks to see if the board is cleared
+      throw new IllegalStateException("Board must be empty"); //if not, throw exception
+    }
     return solve(0,0);
   }
 
@@ -151,6 +157,9 @@ public class QueenBoard {
   *@throws IllegalStateException when the board starts with any non-zero value
   */
   public int countSolutions(){
+    if (!this.cleared()) { //checks to see if the board is cleared
+      throw new IllegalStateException("Board must be empty"); //if not, throw exception
+    }
     int answer = solveAll(0,0);
     return answer;
   }
